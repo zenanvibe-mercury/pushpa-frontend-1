@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be the Face of Pushpa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.cdnfonts.com/css/watcher-personal-use" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/booker-personal-use" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Montserrat", sans-serif;
+        }
+
+        /* Preloader Styles */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .preloader.fade-out {
+            opacity: 0;
+        }
+
+        .axes-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            animation: zoom-in 1.5s ease-out forwards;
+        }
+
+        .axe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('./assets/axe.png') center/contain no-repeat;
+        }
+
+        .axe:nth-child(1) {
+            animation: spin-1 2s linear infinite;
+        }
+
+        .axe:nth-child(2) {
+            animation: spin-2 2s linear infinite;
+        }
+
+        @keyframes spin-1 {
+            0% {
+                transform: rotate(0deg) scale(0.8);
+            }
+
+            100% {
+                transform: rotate(360deg) scale(1.2);
+            }
+        }
+
+        @keyframes spin-2 {
+            0% {
+                transform: rotate(180deg) scale(1.2);
+            }
+
+            100% {
+                transform: rotate(540deg) scale(0.8);
+            }
+        }
+
+        @keyframes zoom-in {
+            0% {
+                transform: scale(0.1);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.473), rgba(0, 0, 0, 0.541)),
+                url('./assets/background.jpg') center/cover;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Main Content Container */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 2rem;
+        }
+
+        /* Top Production Logos */
+        .top-logos {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        .top-logo {
+            height: 40px;
+            width: auto;
+            transition: all 0.3s ease;
+            filter: brightness(0.9);
+            cursor: pointer;
+            object-fit: contain;
+        }
+
+        .top-logo:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        /* Content Section */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* Card Styles */
+        .card {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('./assets/card.jpg') center/cover;
+            width: 300px;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Title Styles */
+        h1 {
+            font-family: 'Watcher Personal Use', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Upload Button */
+        .upload-btn {
+            background-color: #ff0000;
+            color: white;
+            padding: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+            border: none;
+            border-radius: 5px;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .upload-btn:hover {
+            background-color: #cc0000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .upload-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Hashtag */
+        .hashtag {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+            margin-top: 1rem;
+        }
+
+        /* Bottom Sponsors */
+        .bottom-sponsors {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .sponsor-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(10px, 2vw, 30px);
+            flex-wrap: wrap;
+        }
+
+        .sponsor-logo {
+            height: clamp(20px, 4vw, 30px);
+            width: auto;
+            transition: all 0.3s ease;
+            filter: brightness(0.8);
+            object-fit: contain;
+        }
+
+        .sponsor-logo:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        /* Release Date */
+        .release-date {
+            font-family: 'Booker Personal Use', sans-serif;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            color: #ff4500;
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+            margin: 1rem 0;
+            animation: glow 2s infinite alternate;
+        }
+
+        /* Animations */
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+            }
+
+            to {
+                text-shadow: 0 0 20px rgba(255, 69, 0, 0.8),
+                    0 0 30px rgba(255, 69, 0, 0.6);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 10px;
+            }
+
+            .top-logos {
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .top-logo {
+                height: 30px;
+            }
+
+            .content {
+                gap: 1.5rem;
+            }
+
+            .card {
+                width: 250px;
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-logo {
+                height: 25px;
+            }
+
+            .sponsor-logo {
+                height: 18px;
+            }
+        }
+
+        /* ---------------------------- */
+
+
+
+
+        .fire-particle {
+            pointer-events: none;
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff4500;
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: float 3s ease-out forwards;
+            z-index: 10;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: translateY(-50vh) scale(1.2);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(-100vh) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced spark effects */
+        .spark {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: spark 2s linear forwards;
+            z-index: 100;
+            filter: blur(1px);
+        }
+
+        @keyframes spark {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translate(var(--translateX), var(--translateY)) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <!-- <div class="preloader">
+        <div class="axes-container">
+            <div class="axe"></div>
+            <div class="axe"></div>
+        </div>
+    </div> -->
+
+    <div class="main-container">
+        <!-- Top Production Logos -->
+        <div class="top-logos">
+            <img src="./assets/mythri.png" alt="Mythri Movie Makers" class="top-logo">
+            <img src="./assets/aa.png" alt="AA Films" class="top-logo">
+            <img src="./assets/sukumar.png" alt="Sukumar Writings" class="top-logo">
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div class="card"></div>
+            <div class="text-content">
+                <h1>Be the Face of Pushpa</h1>
+                <p>Click the button to make your debut.</p>
+                <button class="upload-btn" onclick="handleUpload()">Upload Photo</button>
+                <div class="hashtag">#faceofpushpa2</div>
+                <div class="release-date">THE RULE IN CINEMAS 5TH DEC 2024</div>
+            </div>
+        </div>
+
+        <!-- Bottom Sponsors -->
+        <div class="bottom-sponsors">
+            <div class="sponsor-row">
+                <img src="./assets/netflix.png" alt="Netflix" class="sponsor-logo">
+                <img src="./assets/prime.png" alt="Prime" class="sponsor-logo">
+                <img src="./assets/ags.jpg" alt="AGS" class="sponsor-logo">
+                <img src="./assets/penstudios.jpg" alt="Pen Studios" class="sponsor-logo">
+                <img src="./assets/e4.jpeg" alt="E4" class="sponsor-logo">
+                <img src="./assets/startplus.svg" alt="Star Plus" class="sponsor-logo">
+            </div>
+            <div class="sponsor-row">
+                <img src="./assets/fanizm.png" alt="Fanizm" class="sponsor-logo">
+                <img src="./assets/goldmedal.png" alt="Gold Medal" class="sponsor-logo">
+                <img src="./assets/astral.jpeg" alt="Astral" class="sponsor-logo">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const preloader = document.querySelector('.preloader');
+                preloader.classList.add('fade-out');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 2000); // Show preloader for 2 seconds
+        });
+
+        // Upload handler
+        function handleUpload() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const card = document.querySelector('.card');
+                        card.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${e.target.result})`;
+                        createSparkEffect(card);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            input.click();
+        }
+
+        // Spark effect
+        function createSparkEffect(element) {
+            for (let i = 0; i < 20; i++) {
+                const spark = document.createElement('div');
+                spark.className = 'spark';
+                const x = (Math.random() - 0.5) * 200;
+                const y = (Math.random() - 0.5) * 200;
+                spark.style.setProperty('--translateX', `${x}px`);
+                spark.style.setProperty('--translateY', `${y}px`);
+                element.appendChild(spark);
+                setTimeout(() => spark.remove(), 2000);
+            }
+        }
+
+        function createFireParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'fire-particle';
+        const startX = Math.random() * window.innerWidth;
+        const size = Math.random() * 6 + 4; // Random size between 4-10px
+
+        particle.style.cssText = `
+            left: ${startX}px;
+            bottom: -20px;
+            width: ${size}px;
+            height: ${size}px;
+            background: ${Math.random() > 0.5 ? '#ff4500' : '#ff8c00'};
+        `;
+
+        document.body.appendChild(particle);
+        
+        setTimeout(() => particle.remove(), 3000);
+    }
+
+    function createMultipleParticles() {
+        const numberOfParticles = Math.floor(Math.random() * 3) + 1; // 1-3 particles
+        for(let i = 0; i < numberOfParticles; i++) {
+            setTimeout(createFireParticle, Math.random() * 100);
+        }
+    }
+
+    // Enhanced spark effect for elements
+    function createEnhancedSparkEffect(element) {
+        const numberOfSparks = 30;
+        const colors = ['#ff4500', '#ff6a00', '#ff8c00'];
+        
+        for (let i = 0; i < numberOfSparks; i++) {
+            const spark = document.createElement('div');
+            spark.className = 'spark';
+            const x = (Math.random() - 0.5) * 300;
+            const y = (Math.random() - 0.5) * 300;
+            const size = Math.random() * 3 + 2;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            spark.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                background: ${color};
+                --translateX: ${x}px;
+                --translateY: ${y}px;
+            `;
+            
+            element.appendChild(spark);
+            setTimeout(() => spark.remove(), 2000);
+        }
+    }
+
+    // Logo hover effects with enhanced sparks
+    document.querySelectorAll('.top-logo, .sponsor-logo').forEach(logo => {
+        logo.addEventListener('mouseover', function() {
+            createEnhancedSparkEffect(this);
+        });
+    });
+
+    // Initialize fire particles
+    document.addEventListener('DOMContentLoaded', () => {
+        // Start the fire particles after preloader is done
+        setTimeout(() => {
+            setInterval(createMultipleParticles, 200);
+        }, 2000);
+    });
+
+    // Update the handleUpload function to use enhanced sparks
+    const originalHandleUpload = handleUpload;
+    handleUpload = function() {
+        originalHandleUpload();
+        const card = document.querySelector('.card');
+        createEnhancedSparkEffect(card);
+    };
+    </script>
+</body>
+
+</html>
